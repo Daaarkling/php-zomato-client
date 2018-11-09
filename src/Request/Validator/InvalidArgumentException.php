@@ -8,9 +8,9 @@ use Throwable;
 class InvalidArgumentException extends Exception
 {
 
-	public function __construct(string $request, string $reason, ?Throwable $previous = null)
+	public function __construct(string $argument, string $given, string $expected, ?Throwable $previous = null)
 	{
-		parent::__construct(sprintf('Todo', $reason, $reason), 0, $previous);
+		parent::__construct(sprintf('Invalid "%s" argument, given "%s", but "%s" expected.', $argument, $given, $expected), 0, $previous);
 	}
 
 }

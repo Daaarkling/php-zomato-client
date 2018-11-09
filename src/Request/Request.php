@@ -2,21 +2,11 @@
 
 namespace Darkling\ZomatoClient\Request;
 
-use Darkling\ZomatoClient\Request\Type\RequestType;
+use Dogma\Web\Url;
 
-class Request
+interface Request
 {
 
-	public const URL_BASE = 'https://developers.zomato.com/api/v2.1/';
-
-	/** @var RequestType */
-	private $requestType;
-
-	public function __construct(RequestType $requestType)
-	{
-		$this->requestType = $requestType;
-	}
-	
-	
+	public function getUrl(): Url;
 
 }

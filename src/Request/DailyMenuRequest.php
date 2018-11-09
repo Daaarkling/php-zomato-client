@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Request\Type;
+namespace Darkling\ZomatoClient\Request;
 
-use Darkling\ZomatoClient\Request\Request;
+use Darkling\ZomatoClient\Request\Validator\EndPointAssembler;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
 use Dogma\Web\Url;
 
-class DailyMenu implements RequestType
+class DailyMenuRequest implements Request
 {
 
-	public const END_POINT = 'dailymenu';
+	private const END_POINT = 'dailymenu';
 
-	public const SCHEMA = [
+	private const SCHEMA = [
 		'res_id' => [
 			RequestValidator::PARAM_REQUIRED,
 			RequestValidator::PARAM_INT,
@@ -24,10 +24,7 @@ class DailyMenu implements RequestType
 	public function __construct(array $params)
 	{
 		RequestValidator::validate(self::SCHEMA, $params);
-		$url = new \Nette\Http\Url(Request::URL_BASE);
-		$url->appendQuery($params);
-
-		$this->url = $url->getAbsoluteUrl();
+		$this->url = EndPointAssembler::assembleUrl(self::END_POINT, $params);
 	}
 
 	public function getUrl(): Url

@@ -2,16 +2,13 @@
 
 namespace Darkling\ZomatoClient\Request;
 
-use Darkling\ZomatoClient\Request\Type\RequestType;
-use Darkling\ZomatoClient\Request\Type\RequestTypes;
-
 class RequestFactory
 {
 
-	public function create(RequestTypes $requestTypes, array $params, $output): Request
+	public function create(RequestType $requestType, array $params): Request
 	{
 		/** @var RequestType $requestType */
-		$requestType = new $requestTypes->getValue()($params);
+		$requestType = new $requestType->getValue()($params);
 		return new Request($requestType);
 	}
 
