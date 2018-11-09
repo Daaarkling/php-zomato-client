@@ -1,0 +1,32 @@
+{
+	"name": "darkling/zomato-client",
+	"description": "Zomato php api client",
+	"license": ["BSD-3-Clause"],
+	"authors": [
+		{
+			"name": "Jan Vaňura",
+			"homepage": "https://janvanura.cz"
+		}
+	],
+	"config": {
+		"bin-dir": "bin"
+	},
+	"require": {
+		"php": ">=7.1",
+		"guzzlehttp/guzzle": "^6.0|^5.0|^4.0",
+		"nette/http": "^2.4",
+		"dogma/dogma": "^0.1.10"
+	},
+	"require-dev": {
+		"consistence/coding-standard": "^3.0",
+		"slevomat/coding-standard": "^4.0",
+		"phing/phing": "^2.16",
+		"phpstan/phpstan": "^0.10",
+		"phpstan/phpstan-strict-rules": "^0.10"
+	},
+  	"autoload": {
+		"psr-4": {
+		  "Darkling\\ZomatoClient\\": ["src/"]
+		}
+	}
+}
