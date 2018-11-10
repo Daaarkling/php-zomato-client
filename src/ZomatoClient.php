@@ -2,63 +2,70 @@
 
 namespace Darkling\ZomatoClient;
 
-use Darkling\ZomatoClient\Result\Result;
-use Darkling\ZomatoClient\Result\ResultFactory;
+use Darkling\ZomatoClient\Request\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Response;
 use Nette\Http\Url;
-use Nette\Utils\Json;
-use stdClass;
 
 class ZomatoClient
 {
 
-	/** @var \GuzzleHttp\Client */
+	public const BASE_API_URL = '';
+
+	/** @var string */
+	private $userKey;
+
+	/** @var string */
+	private $output;
+
+	/** @var Client|null */
 	private $httpClient;
 
-	public function __construct(string $userKey, string $output = OutputOption::JSON, ?Client $guzzleClient = null)
+	public function __construct(string $userKey, string $output = OutputOption::JSON, ?Client $httpClient = null)
 	{
-		if (!OutputOption::isValid($output)) {
-			throw new InvalidOutputOptionException($output);
+		if ($httpClient === null) {
+			$httpClient = new Client();
 		}
 
-		if ($guzzleClient === null) {
-			$this->httpClient = new Client();
-		}
-		$this->httpClient->co
-		$this->httpClient = new Client([
-			'headers' => [
-				'user_key' => $userKey,
-			],
-		]);
-
+		$this->userKey = $userKey;
 		$this->output = $output;
-		$this->resultFactory = new ResultFactory();
+		$this->httpClient = $httpClient;
 	}
 
-	private function send(Request $request): Response
+	public function send(Request $request): Response
 	{
+		$url = $this->assembleUrl($request->getEndPoint(), $request->getParameters());
 		try {
-
-			return $this->httpClient->request($url);
+			return $this->httpClient->request($url->getAbsoluteUrl());
 
 		} catch (GuzzleException $e) {
 			throw new ZomatoRequestException($url->getAbsoluteUrl(), $e);
 		}
 	}
 
-	private function sendAsync(Request $request): Response
+	public function sendAsync(Request $request, callable $onSuccess, callable $onFail): void
 	{
+		$url = $this->assembleUrl($request->getEndPoint(), $request->getParameters());
 		try {
-			$url = new Url(self::URL_BASE . $endpoint);
-			$url->appendQuery($params);
-
-			return $this->httpClient->request($url);
+			$this->httpClient->requestAsync($url->getAbsoluteUrl()).then(
+				function () use ($onSuccess) {
+					$response = 'balbalba';
+					$onSuccess($response);
+				},
+				function () use ($onFail) {
+					$onFail();
+				});
 
 		} catch (GuzzleException $e) {
 			throw new ZomatoRequestException($url->getAbsoluteUrl(), $e);
 		}
+	}
+
+	private function assembleUrl(string $endPoint, array $parameters): Url
+	{
+		$url = new Url(self::BASE_API_URL . $endPoint);
+		$url->appendQuery($parameters);
+		return $url;
 	}
 
 }

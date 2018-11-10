@@ -12,7 +12,7 @@ class RequestValidator
 
 	/**
 	 * @param string[] $schema
-	 * @param string[]|int[] $parameters
+	 * @param string[]|int[]|float[] $parameters
 	 * @throws MissingRequiredArgumentsException
 	 * @throws UnknownArgumentsException
 	 */
