@@ -10,6 +10,9 @@ interface Request
 
 	public function getEndPoint(): string;
 
+	/**
+	 * @return int[]|string[]
+	 */
 	public function getParameters(): array;
 
 }

@@ -29,6 +29,12 @@ class RestaurantRequest implements Request
 		];
 	}
 
+	/**
+	 * @param int[] $parameters
+	 * @return RestaurantRequest
+	 * @throws Validator\MissingRequiredArgumentsException
+	 * @throws Validator\UnknownArgumentsException
+	 */
 	public static function createFromParameters(array $parameters): self
 	{
 		RequestValidator::validate(self::SCHEMA, $parameters);
@@ -43,6 +49,9 @@ class RestaurantRequest implements Request
 		return self::END_POINT;
 	}
 
+	/**
+	 * @return int[]
+	 */
 	public function getParameters(): array
 	{
 		return $this->parameters;

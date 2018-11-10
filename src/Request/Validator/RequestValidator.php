@@ -26,7 +26,6 @@ class RequestValidator
 		}
 
 		if ($missingParameters !== []) {
-			arsort($missingParameters);
 			throw new MissingRequiredArgumentsException($missingParameters);
 		}
 
@@ -41,7 +40,6 @@ class RequestValidator
 		}
 
 		if ($unknownParameters !== []) {
-			arsort($unknownParameters);
 			throw new UnknownArgumentsException($unknownParameters);
 		}
 

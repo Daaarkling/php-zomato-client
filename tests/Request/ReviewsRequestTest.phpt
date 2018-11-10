@@ -3,6 +3,7 @@
 namespace Darkling\ZomatoClient\Test\Request;
 
 use Darkling\ZomatoClient\Request\RestaurantRequest;
+use Darkling\ZomatoClient\Request\ReviewsRequest;
 use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 use Tester\Assert;
@@ -13,22 +14,22 @@ require __DIR__ . '/../bootstrap.php';
 /**
  * @testCase
  */
-class RestaurantRequestTest extends TestCase
+class ReviewsRequestTest extends TestCase
 {
 
 	public function testCreate(): void
 	{
-		$request = new RestaurantRequest(1);
+		$request = new ReviewsRequest(1, 2, 3);
 
-		Assert::equal(['res_id' => 1], $request->getParameters());
-		Assert::same('restaurant', $request->getEndPoint());
+		Assert::equal(['res_id' => 1, 'start' => 2, 'count' => 3], $request->getParameters());
+		Assert::same('reviews', $request->getEndPoint());
 	}
 
 	public function testCreateFromParameters(): void
 	{
-		$request = RestaurantRequest::createFromParameters(['res_id' => 2]);
+		$request = ReviewsRequest::createFromParameters(['res_id' => 1, 'start' => 2, 'count' => 3]);
 
-		Assert::equal(['res_id' => 2], $request->getParameters());
+		Assert::equal(['res_id' => 1, 'start' => 2, 'count' => 3], $request->getParameters());
 		Assert::same('restaurant', $request->getEndPoint());
 
 		Assert::exception(function () {
@@ -43,4 +44,4 @@ class RestaurantRequestTest extends TestCase
 
 }
 
-(new RestaurantRequestTest())->run();
+(new ReviewsRequestTest())->run();

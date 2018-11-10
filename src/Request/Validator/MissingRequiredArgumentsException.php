@@ -3,6 +3,7 @@
 namespace Darkling\ZomatoClient\Request\Validator;
 
 use Exception;
+use function ksort;
 use Throwable;
 use function implode;
 
@@ -15,6 +16,7 @@ class MissingRequiredArgumentsException extends Exception
 	 */
 	public function __construct(array $arguments, ?Throwable $previous = null)
 	{
+		ksort($arguments);
 		parent::__construct(sprintf('Missing required arguments: %s', implode(',', $arguments)), 0, $previous);
 	}
 
