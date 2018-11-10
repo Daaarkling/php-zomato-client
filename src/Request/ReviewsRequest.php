@@ -4,16 +4,18 @@ namespace Darkling\ZomatoClient\Request;
 
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
 
-class DailyMenuRequest implements Request
+class ReviewsRequest implements Request
 {
 
-	private const END_POINT = 'dailymenu';
+	private const END_POINT = 'reviews';
 
 	private const SCHEMA = [
 		self::PARAMETER_REQUIRED => [
 			'res_id'
 		],
-		self::PARAMETER_OPTIONAL => [],
+		self::PARAMETER_OPTIONAL => [
+			'start', 'count'
+		],
 	];
 
 	/** @var int[] */
@@ -21,11 +23,15 @@ class DailyMenuRequest implements Request
 
 	/**
 	 * @param int $resId - id of restaurant whose details are requested
+	 * @param int|null $start - fetch results after this offset
+	 * @param int|null $count - max number of results to retrieve
 	 */
-	public function __construct(int $resId)
+	public function __construct(int $resId, ?int $start = null, ?int $count = null)
 	{
 		$this->parameters = [
 			'res_id' => $resId,
+			'start' => $start,
+			'count' => $count,
 		];
 	}
 
@@ -34,7 +40,9 @@ class DailyMenuRequest implements Request
 		RequestValidator::validate(self::SCHEMA, $parameters);
 
 		return new self(
-			$parameters['res_id']
+			$parameters['res_id'],
+			$parameters['start'],
+			$parameters['count']
 		);
 	}
 

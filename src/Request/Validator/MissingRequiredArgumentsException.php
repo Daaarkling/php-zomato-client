@@ -6,7 +6,7 @@ use Exception;
 use Throwable;
 use function implode;
 
-class MissingRequiredArgumentException extends Exception
+class MissingRequiredArgumentsException extends Exception
 {
 
 	/**
@@ -15,7 +15,7 @@ class MissingRequiredArgumentException extends Exception
 	 */
 	public function __construct(array $arguments, ?Throwable $previous = null)
 	{
-		parent::__construct(sprintf('Missing required argument: %s', implode(',', $arguments)), 0, $previous);
+		parent::__construct(sprintf('Missing required arguments: %s', implode(',', $arguments)), 0, $previous);
 	}
 
 }

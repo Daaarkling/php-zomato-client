@@ -2,11 +2,14 @@
 
 namespace Darkling\ZomatoClient\Request;
 
-use Dogma\Web\Url;
-
 interface Request
 {
 
-	public function getUrl(): Url;
+	public const PARAMETER_REQUIRED = 'required';
+	public const PARAMETER_OPTIONAL = 'optional';
+
+	public function getEndPoint(): string;
+
+	public function getParameters(): array;
 
 }

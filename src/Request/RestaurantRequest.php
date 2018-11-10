@@ -4,10 +4,10 @@ namespace Darkling\ZomatoClient\Request;
 
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
 
-class DailyMenuRequest implements Request
+class RestaurantRequest implements Request
 {
 
-	private const END_POINT = 'dailymenu';
+	private const END_POINT = 'restaurant';
 
 	private const SCHEMA = [
 		self::PARAMETER_REQUIRED => [

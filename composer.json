@@ -22,11 +22,17 @@
 		"slevomat/coding-standard": "^4.0",
 		"phing/phing": "^2.16",
 		"phpstan/phpstan": "^0.10",
-		"phpstan/phpstan-strict-rules": "^0.10"
+		"phpstan/phpstan-strict-rules": "^0.10",
+		"nette/tester": "^2.1"
 	},
   	"autoload": {
 		"psr-4": {
 		  "Darkling\\ZomatoClient\\": ["src/"]
 		}
-	}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Darkling\\ZomatoClient\\Test\\": "tests"
+		}
+ 	}
 }
