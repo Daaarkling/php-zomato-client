@@ -2,6 +2,7 @@
 
 namespace Darkling\ZomatoClient\Request;
 
+use function array_map;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
 
 class RestaurantRequest implements Request
@@ -16,7 +17,7 @@ class RestaurantRequest implements Request
 		self::PARAMETER_OPTIONAL => [],
 	];
 
-	/** @var int[] */
+	/** @var string[] */
 	private $parameters;
 
 	/**
@@ -24,9 +25,9 @@ class RestaurantRequest implements Request
 	 */
 	public function __construct(int $resId)
 	{
-		$this->parameters = [
+		$this->parameters = array_map('\strval', [
 			'res_id' => $resId,
-		];
+		]);
 	}
 
 	/**
@@ -50,7 +51,7 @@ class RestaurantRequest implements Request
 	}
 
 	/**
-	 * @return int[]
+	 * @return string[]
 	 */
 	public function getParameters(): array
 	{

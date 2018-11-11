@@ -2,6 +2,7 @@
 
 namespace Darkling\ZomatoClient\Request;
 
+use function array_filter;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
 
 class ReviewsRequest implements Request
@@ -18,7 +19,7 @@ class ReviewsRequest implements Request
 		],
 	];
 
-	/** @var int[] */
+	/** @var string[] */
 	private $parameters;
 
 	/**
@@ -28,11 +29,11 @@ class ReviewsRequest implements Request
 	 */
 	public function __construct(int $resId, ?int $start = null, ?int $count = null)
 	{
-		$this->parameters = [
+		$this->parameters = array_map('\strval', array_filter([
 			'res_id' => $resId,
 			'start' => $start,
 			'count' => $count,
-		];
+		]));
 	}
 
 	/**
@@ -58,7 +59,7 @@ class ReviewsRequest implements Request
 	}
 
 	/**
-	 * @return int[]
+	 * @return string[]
 	 */
 	public function getParameters(): array
 	{

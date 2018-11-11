@@ -5,6 +5,7 @@ namespace Darkling\ZomatoClient;
 use Darkling\ZomatoClient\Request\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
 use Nette\Http\Url;
 
 class ZomatoClient
@@ -48,7 +49,7 @@ class ZomatoClient
 		$url = $this->assembleUrl($request->getEndPoint(), $request->getParameters());
 		try {
 			$this->httpClient->requestAsync($url->getAbsoluteUrl()).then(
-				function () use ($onSuccess) {
+				function (Response $guzzleResponse) use ($onSuccess) {
 					$response = 'balbalba';
 					$onSuccess($response);
 				},

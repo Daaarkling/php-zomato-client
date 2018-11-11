@@ -19,16 +19,11 @@ class DailyMenuRequestTest extends TestCase
 	public function testCreate(): void
 	{
 		$request = new DailyMenuRequest(1);
-
-		Assert::equal(['res_id' => 1], $request->getParameters());
+		Assert::equal(['res_id' => '1'], $request->getParameters());
 		Assert::same('dailymenu', $request->getEndPoint());
-	}
 
-	public function testCreateFromParameters(): void
-	{
 		$request = DailyMenuRequest::createFromParameters(['res_id' => 2]);
-
-		Assert::equal(['res_id' => 2], $request->getParameters());
+		Assert::equal(['res_id' => '2'], $request->getParameters());
 		Assert::same('dailymenu', $request->getEndPoint());
 
 		Assert::exception(function () {
@@ -38,7 +33,6 @@ class DailyMenuRequestTest extends TestCase
 		Assert::exception(function () {
 			DailyMenuRequest::createFromParameters(['res_id' => 2, 'foo' => 10]);
 		}, UnknownArgumentsException::class, 'Unknown arguments: foo');
-
 	}
 
 }

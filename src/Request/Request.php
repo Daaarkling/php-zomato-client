@@ -11,7 +11,7 @@ interface Request
 	public function getEndPoint(): string;
 
 	/**
-	 * @return int[]|string[]
+	 * @return string[]
 	 */
 	public function getParameters(): array;
 

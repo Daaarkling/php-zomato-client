@@ -19,16 +19,11 @@ class RestaurantRequestTest extends TestCase
 	public function testCreate(): void
 	{
 		$request = new RestaurantRequest(1);
-
-		Assert::equal(['res_id' => 1], $request->getParameters());
+		Assert::equal(['res_id' => '1'], $request->getParameters());
 		Assert::same('restaurant', $request->getEndPoint());
-	}
 
-	public function testCreateFromParameters(): void
-	{
 		$request = RestaurantRequest::createFromParameters(['res_id' => 2]);
-
-		Assert::equal(['res_id' => 2], $request->getParameters());
+		Assert::equal(['res_id' => '2'], $request->getParameters());
 		Assert::same('restaurant', $request->getEndPoint());
 
 		Assert::exception(function () {
@@ -38,7 +33,6 @@ class RestaurantRequestTest extends TestCase
 		Assert::exception(function () {
 			RestaurantRequest::createFromParameters(['res_id' => 2, 'foo' => 10]);
 		}, UnknownArgumentsException::class, 'Unknown arguments: foo');
-
 	}
 
 }

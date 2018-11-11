@@ -2,10 +2,12 @@
 
 namespace Darkling\ZomatoClient\Request;
 
+use function array_filter;
 use Darkling\ZomatoClient\Request\Type\EntityType;
 use Darkling\ZomatoClient\Request\Type\Order;
 use Darkling\ZomatoClient\Request\Type\Sort;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
+use function implode;
 
 class SearchRequest implements Request
 {
@@ -32,7 +34,7 @@ class SearchRequest implements Request
 		],
 	];
 
-	/** @var int[]|string[]|float[]|EntityType[]|int[][]|Sort[]|Order[] */
+	/** @var string[] */
 	private $parameters;
 
 	/**
@@ -68,7 +70,7 @@ class SearchRequest implements Request
 		?Order $order = null
 	)
 	{
-		$this->parameters = [
+		$this->parameters = array_map('\strval', array_filter([
 			'entity_id' => $entityId,
 			'entity_type' => $entityType,
 			'q' => $q,
@@ -77,18 +79,18 @@ class SearchRequest implements Request
 			'lat' => $lat,
 			'lon' => $lon,
 			'radius' => $radius,
-			'cuisines' => $cuisines,
+			'cuisines' => $cuisines !== null ? implode(',', $cuisines) : null,
 			'establishment_type' => $establishmentType,
 			'collection_id' => $collectionId,
 			'category' => $category,
 			'sort' => $sort,
 			'order' => $order,
-		];
+		]));
 	}
 
 	/**
 	 * @param int[]|string[]|float[][] $parameters
-	 * @return DailyMenuRequest
+	 * @return SearchRequest
 	 * @throws Validator\MissingRequiredArgumentsException
 	 * @throws Validator\UnknownArgumentsException
 	 */
@@ -97,7 +99,20 @@ class SearchRequest implements Request
 		RequestValidator::validate(self::SCHEMA, $parameters);
 
 		return new self(
-			$parameters['res_id']
+			$parameters['entity_id'],
+			$parameters['entity_type'],
+			$parameters['q'],
+			$parameters['start'],
+			$parameters['count'],
+			$parameters['lat'],
+			$parameters['lon'],
+			$parameters['radius'],
+			$parameters['cuisines'],
+			$parameters['establishment_type'],
+			$parameters['collection_id'],
+			$parameters['category'],
+			$parameters['sort'],
+			$parameters['order']
 		);
 	}
 
@@ -107,7 +122,7 @@ class SearchRequest implements Request
 	}
 
 	/**
-	 * @return int[]|string[]|float[]|EntityType[]|int[][]|Sort[]|Order[]
+	 * @return string[]
 	 */
 	public function getParameters(): array
 	{
