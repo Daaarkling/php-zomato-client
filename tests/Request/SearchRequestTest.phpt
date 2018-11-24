@@ -3,9 +3,9 @@
 namespace Darkling\ZomatoClient\Test\Request;
 
 use Darkling\ZomatoClient\Request\SearchRequest;
-use Darkling\ZomatoClient\Request\Type\EntityType;
-use Darkling\ZomatoClient\Request\Type\Order;
-use Darkling\ZomatoClient\Request\Type\Sort;
+use Darkling\ZomatoClient\Request\Enum\EntityType;
+use Darkling\ZomatoClient\Request\Enum\Order;
+use Darkling\ZomatoClient\Request\Enum\Sort;
 use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 use Tester\Assert;
 use Tester\TestCase;

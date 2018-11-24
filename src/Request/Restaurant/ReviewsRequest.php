@@ -1,9 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Request;
+namespace Darkling\ZomatoClient\Request\Restaurant;
 
 use function array_filter;
+use Darkling\ZomatoClient\Request\Request;
+use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
+use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 
 class ReviewsRequest implements Request
 {
@@ -39,8 +42,8 @@ class ReviewsRequest implements Request
 	/**
 	 * @param int[] $parameters
 	 * @return ReviewsRequest
-	 * @throws Validator\MissingRequiredArgumentsException
-	 * @throws Validator\UnknownArgumentsException
+	 * @throws MissingRequiredArgumentsException
+	 * @throws UnknownArgumentsException
 	 */
 	public static function createFromParameters(array $parameters): self
 	{

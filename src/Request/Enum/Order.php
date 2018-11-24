@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Request\Type;
+namespace Darkling\ZomatoClient\Request\Enum;
 
 use Dogma\Enum\StringEnum;
 

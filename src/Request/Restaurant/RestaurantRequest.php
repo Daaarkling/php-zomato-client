@@ -1,14 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Request;
+namespace Darkling\ZomatoClient\Request\Restaurant;
 
 use function array_map;
+use Darkling\ZomatoClient\Request\Request;
+use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
+use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 
-class DailyMenuRequest implements Request
+class RestaurantRequest implements Request
 {
 
-	private const END_POINT = 'dailymenu';
+	private const END_POINT = 'restaurant';
 
 	private const SCHEMA = [
 		self::PARAMETER_REQUIRED => [
@@ -32,9 +35,9 @@ class DailyMenuRequest implements Request
 
 	/**
 	 * @param int[] $parameters
-	 * @return DailyMenuRequest
-	 * @throws Validator\MissingRequiredArgumentsException
-	 * @throws Validator\UnknownArgumentsException
+	 * @return RestaurantRequest
+	 * @throws MissingRequiredArgumentsException
+	 * @throws UnknownArgumentsException
 	 */
 	public static function createFromParameters(array $parameters): self
 	{

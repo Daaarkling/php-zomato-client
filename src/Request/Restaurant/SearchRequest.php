@@ -1,12 +1,15 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Request;
+namespace Darkling\ZomatoClient\Request\Restaurant;
 
 use function array_filter;
-use Darkling\ZomatoClient\Request\Type\EntityType;
-use Darkling\ZomatoClient\Request\Type\Order;
-use Darkling\ZomatoClient\Request\Type\Sort;
+use Darkling\ZomatoClient\Request\Enum\EntityType;
+use Darkling\ZomatoClient\Request\Enum\Order;
+use Darkling\ZomatoClient\Request\Enum\Sort;
+use Darkling\ZomatoClient\Request\Request;
+use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
+use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 use function implode;
 
 class SearchRequest implements Request
@@ -91,8 +94,8 @@ class SearchRequest implements Request
 	/**
 	 * @param int[]|string[]|float[][] $parameters
 	 * @return SearchRequest
-	 * @throws Validator\MissingRequiredArgumentsException
-	 * @throws Validator\UnknownArgumentsException
+	 * @throws MissingRequiredArgumentsException
+	 * @throws UnknownArgumentsException
 	 */
 	public static function createFromParameters(array $parameters): self
 	{
