@@ -67,14 +67,15 @@ class ZomatoClient
 		$url = $this->assembleUrl($request);
 		$this->handleContentTypeHeader($responseOption);
 
-		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl()) . then(
-			function (ResponseInterface $httpResponse) use ($onSuccess, $responseOption): void {
-				$onSuccess($this->responseFactory->create($responseOption, $httpResponse));
-			},
-			static function (RequestException $e) use ($onFail): void {
-				$onFail(new ZomatoRequestException($url->getAbsoluteUrl(), $e));
-			}
-		);
+		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl())
+			->then(
+				function (ResponseInterface $httpResponse) use ($onSuccess, $responseOption): void {
+					$onSuccess($this->responseFactory->create($responseOption, $httpResponse));
+				},
+				static function (RequestException $e) use ($onFail, $url): void {
+					$onFail(new ZomatoRequestException($url->getAbsoluteUrl(), $e));
+				}
+			);
 	}
 
 	private function assembleUrl(Request $request): Url

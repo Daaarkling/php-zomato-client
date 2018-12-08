@@ -90,7 +90,7 @@ class SearchRequest implements Request
 	}
 
 	/**
-	 * @param int[]|string[]|float[][] $parameters
+	 * @param mixed[] $parameters
 	 * @return \Darkling\ZomatoClient\Request\Restaurant\SearchRequest
 	 */
 	public static function createFromParameters(array $parameters): self

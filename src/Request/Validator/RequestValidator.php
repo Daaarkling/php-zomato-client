@@ -11,8 +11,8 @@ class RequestValidator
 {
 
 	/**
-	 * @param string[] $schema
-	 * @param string[]|int[]|float[] $parameters
+	 * @param string[][] $schema
+	 * @param mixed[] $parameters
 	 */
 	public static function validate(array $schema, array $parameters): void
 	{

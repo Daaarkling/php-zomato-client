@@ -11,7 +11,7 @@ class UnknownArgumentsException extends Exception
 {
 
 	/**
-	 * @param string[] $arguments
+	 * @param string[]|int[] $arguments
 	 * @param \Throwable|null $previous
 	 */
 	public function __construct(array $arguments, ?Throwable $previous = null)

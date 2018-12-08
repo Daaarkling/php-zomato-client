@@ -14,7 +14,7 @@ class OptionResponseFactory implements ResponseFactory
 		$headers = $response->getHeaders();
 		$contents = $response->getBody()->getContents();
 
-		if ($responseOption === ResponseOption::JSON_ARRAY) {
+		if ($responseOption->equals(ResponseOption::JSON_ARRAY)) {
 			return new JsonArrayResponse(
 				$statusCode,
 				$reasonPhrase,
@@ -23,7 +23,7 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::JSON_STD_CLASS) {
+		if ($responseOption->equals(ResponseOption::JSON_STD_CLASS)) {
 			return new JsonStdClassResponse(
 				$statusCode,
 				$reasonPhrase,
@@ -32,7 +32,7 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::XML_SIMPLE_XML) {
+		if ($responseOption->equals(ResponseOption::XML_SIMPLE_XML)) {
 			return new XmlSimpleXmlResponse(
 				$statusCode,
 				$reasonPhrase,
@@ -41,7 +41,7 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::XML_DOM) {
+		if ($responseOption->equals(ResponseOption::XML_DOM)) {
 			return new XmlDomResponse(
 				$statusCode,
 				$reasonPhrase,
@@ -50,7 +50,7 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::XML_STRING) {
+		if ($responseOption->equals(ResponseOption::XML_STRING)) {
 			return new XmlStringResponse(
 				$statusCode,
 				$reasonPhrase,
