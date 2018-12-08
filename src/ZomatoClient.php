@@ -3,26 +3,20 @@
 namespace Darkling\ZomatoClient;
 
 use Darkling\ZomatoClient\Request\Request;
+use Darkling\ZomatoClient\Response\OptionResponseFactory;
 use Darkling\ZomatoClient\Response\Response;
-use Darkling\ZomatoClient\Response\ResponseFactory;
 use Darkling\ZomatoClient\Response\ResponseOption;
-use Dogma\Http\HttpHeader;
 use Dogma\Http\HttpMethod;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Nette\Http\Url;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class ZomatoClient
 {
 
 	public const BASE_API_URL = 'https://developers.zomato.com/api/v2.1/';
-	private const MIDDLEWARE_NAME = 'content-type';
-
-	/** @var string */
-	private $userKey;
 
 	/** @var \GuzzleHttp\Client */
 	private $httpClient;
@@ -33,24 +27,21 @@ class ZomatoClient
 	/** @var \Darkling\ZomatoClient\Response\ResponseFactory */
 	private $responseFactory;
 
-	public function __construct(
-		string $userKey,
-		ResponseOption $responseOption,
-		ResponseFactory $responseFactory,
-		Client $httpClient
-	)
+	public function __construct(string $userKey, ?ResponseOption $responseOption = null)
 	{
-		$this->userKey = $userKey;
+		$this->httpClient = new Client([
+			'headers' => [
+				'user_key' => $userKey,
+			],
+		]);
 		$this->defaultResponseOption = $responseOption;
-		$this->responseFactory = $responseFactory;
-		$this->httpClient = $httpClient;
+		$this->responseFactory = new OptionResponseFactory();
 	}
 
 	public function send(Request $request, ?ResponseOption $responseOption = null): Response
 	{
 		$url = $this->assembleUrl($request);
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
-		$this->handleContentTypeHeader($responseOption);
 
 		try {
 			$httpResponse = $this->httpClient->request(HttpMethod::GET, $url->getAbsoluteUrl());
@@ -65,7 +56,6 @@ class ZomatoClient
 	{
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
 		$url = $this->assembleUrl($request);
-		$this->handleContentTypeHeader($responseOption);
 
 		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl())
 			->then(
@@ -81,27 +71,8 @@ class ZomatoClient
 	private function assembleUrl(Request $request): Url
 	{
 		$url = new Url(self::BASE_API_URL . $request->getEndPoint());
-		$url->appendQuery(['user_key' => $this->userKey]);
-		$url->appendQuery($url->getAbsoluteUrl());
+		$url->appendQuery($request->getParameters());
 		return $url;
-	}
-
-	private function handleContentTypeHeader(ResponseOption $responseOption): callable
-	{
-		$contentType = $responseOption->isJsonRequest()
-			? 'application/json'
-			: 'application/xml';
-
-		/** @var \GuzzleHttp\HandlerStack $stack */
-		$stack = $this->httpClient->getConfig(['handler']);
-		$stack->remove(self::MIDDLEWARE_NAME);
-		$stack->push(static function (callable $handler) use ($contentType): callable {
-			return static function (RequestInterface $request, array $options) use ($handler, $contentType) {
-				$request = $request->withHeader(HttpHeader::CONTENT_TYPE, $contentType);
-
-				return $handler($request, $options);
-			};
-		}, self::MIDDLEWARE_NAME);
 	}
 
 }

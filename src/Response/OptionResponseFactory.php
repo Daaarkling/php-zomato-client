@@ -32,33 +32,6 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption->equals(ResponseOption::XML_SIMPLE_XML)) {
-			return new XmlSimpleXmlResponse(
-				$statusCode,
-				$reasonPhrase,
-				$headers,
-				$contents
-			);
-		}
-
-		if ($responseOption->equals(ResponseOption::XML_DOM)) {
-			return new XmlDomResponse(
-				$statusCode,
-				$reasonPhrase,
-				$headers,
-				$contents
-			);
-		}
-
-		if ($responseOption->equals(ResponseOption::XML_STRING)) {
-			return new XmlStringResponse(
-				$statusCode,
-				$reasonPhrase,
-				$headers,
-				$contents
-			);
-		}
-
 		return new JsonStringResponse(
 			$statusCode,
 			$reasonPhrase,
