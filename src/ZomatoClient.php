@@ -36,7 +36,7 @@ class ZomatoClient
 				'user_key' => $userKey,
 			],
 		]);
-		$this->defaultResponseOption = $responseOption;
+		$this->defaultResponseOption = $responseOption ?? ResponseOption::get(ResponseOption::JSON_STRING);
 		$this->responseFactory = new OptionResponseFactory();
 		$this->urlProvider = new UrlProvider(self::BASE_API_URL);
 	}
