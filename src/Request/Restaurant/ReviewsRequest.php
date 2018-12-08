@@ -17,7 +17,7 @@ class ReviewsRequest implements Request
 		],
 		self::PARAMETER_OPTIONAL => [
 			'start',
-		'count',
+			'count',
 		],
 	];
 
