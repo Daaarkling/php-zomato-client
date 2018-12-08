@@ -9,7 +9,6 @@ class JsonArrayResponse extends BaseResponse
 
 	/**
 	 * @return mixed[]
-	 * @throws \Nette\Utils\JsonException
 	 */
 	public function getData(): array
 	{

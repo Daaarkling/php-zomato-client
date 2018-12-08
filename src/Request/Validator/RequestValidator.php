@@ -3,9 +3,9 @@
 namespace Darkling\ZomatoClient\Request\Validator;
 
 use Darkling\ZomatoClient\Request\Request;
-use function in_array;
 use function array_key_exists;
 use function array_keys;
+use function in_array;
 
 class RequestValidator
 {
@@ -13,8 +13,6 @@ class RequestValidator
 	/**
 	 * @param string[] $schema
 	 * @param string[]|int[]|float[] $parameters
-	 * @throws MissingRequiredArgumentsException
-	 * @throws UnknownArgumentsException
 	 */
 	public static function validate(array $schema, array $parameters): void
 	{
@@ -42,7 +40,6 @@ class RequestValidator
 		if ($unknownParameters !== []) {
 			throw new UnknownArgumentsException($unknownParameters);
 		}
-
 	}
 
 }

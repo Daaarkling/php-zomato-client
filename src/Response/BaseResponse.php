@@ -19,6 +19,12 @@ abstract class BaseResponse implements Response
 	/** @var mixed */
 	protected $data;
 
+	/**
+	 * @param int $statusCode
+	 * @param string $reasonPhrase
+	 * @param string[][] $headers
+	 * @param mixed $data
+	 */
 	public function __construct(int $statusCode, string $reasonPhrase, array $headers, $data)
 	{
 		$this->statusCode = $statusCode;

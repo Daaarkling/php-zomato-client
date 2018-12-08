@@ -4,7 +4,7 @@ namespace Darkling\ZomatoClient\Response;
 
 use DOMDocument;
 
-class DomResponse extends BaseResponse
+class XmlDomResponse extends BaseResponse
 {
 
 	public function getData(): DOMDocument

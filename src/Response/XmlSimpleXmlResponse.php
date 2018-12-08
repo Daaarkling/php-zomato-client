@@ -4,7 +4,7 @@ namespace Darkling\ZomatoClient\Response;
 
 use SimpleXMLElement;
 
-class SimpleXmlResponse extends BaseResponse
+class XmlSimpleXmlResponse extends BaseResponse
 {
 
 	public function getData(): SimpleXMLElement

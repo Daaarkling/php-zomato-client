@@ -23,7 +23,10 @@
 		<exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>
 		<exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectLinesCountBetweenDifferentAnnotationsTypes"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing.IncorrectLinesCountBeforeControlStructure"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.ControlStructureSpacing.IncorrectLinesCountAfterLastControlStructure"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
@@ -49,8 +52,8 @@
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array" value="
-				app => LunchCrawler,
-				tests => LunchCrawler,
+				src => Darkling\ZomatoClient,
+				tests => Darkling\ZomatoClient\Test,
 			"/>
 		</properties>
 	</rule>

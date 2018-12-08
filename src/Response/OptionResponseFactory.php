@@ -32,8 +32,8 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::SIMPLE_XML) {
-			return new SimpleXmlResponse(
+		if ($responseOption === ResponseOption::XML_SIMPLE_XML) {
+			return new XmlSimpleXmlResponse(
 				$statusCode,
 				$reasonPhrase,
 				$headers,
@@ -41,8 +41,8 @@ class OptionResponseFactory implements ResponseFactory
 			);
 		}
 
-		if ($responseOption === ResponseOption::DOM) {
-			return new DomResponse(
+		if ($responseOption === ResponseOption::XML_DOM) {
+			return new XmlDomResponse(
 				$statusCode,
 				$reasonPhrase,
 				$headers,

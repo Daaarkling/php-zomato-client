@@ -3,16 +3,16 @@
 namespace Darkling\ZomatoClient\Request\Validator;
 
 use Exception;
-use function ksort;
 use Throwable;
 use function implode;
+use function ksort;
 
 class MissingRequiredArgumentsException extends Exception
 {
 
 	/**
 	 * @param string[] $arguments
-	 * @param Throwable|null $previous
+	 * @param \Throwable|null $previous
 	 */
 	public function __construct(array $arguments, ?Throwable $previous = null)
 	{

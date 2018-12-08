@@ -27,7 +27,7 @@
 		>
 			<arg value="--standard=build/phpcs.xml"/>
 			<arg value="--ignore=*/data/*"/>
-			<arg path="app"/>
+			<arg path="src"/>
 		</exec>
 	</target>
 
@@ -39,7 +39,7 @@
 				checkreturn="true"
 		>
 			<arg value="--standard=build/phpcs.xml"/>
-			<arg path="app"/>
+			<arg path="src"/>
 		</exec>
 	</target>
 
@@ -55,7 +55,7 @@
 			<arg value="7"/>
 			<arg value="-c"/>
 			<arg path="build/phpstan.neon"/>
-			<arg path="app"/>
+			<arg path="src"/>
 		</exec>
 	</target>
 

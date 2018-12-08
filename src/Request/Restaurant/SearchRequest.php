@@ -2,14 +2,12 @@
 
 namespace Darkling\ZomatoClient\Request\Restaurant;
 
-use function array_filter;
 use Darkling\ZomatoClient\Request\Enum\EntityType;
 use Darkling\ZomatoClient\Request\Enum\Order;
 use Darkling\ZomatoClient\Request\Enum\Sort;
 use Darkling\ZomatoClient\Request\Request;
-use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\RequestValidator;
-use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
+use function array_filter;
 use function implode;
 
 class SearchRequest implements Request
@@ -22,7 +20,7 @@ class SearchRequest implements Request
 		self::PARAMETER_OPTIONAL => [
 			'entity_id',
 			'entity_type',
-			'q' ,
+			'q',
 			'start',
 			'count',
 			'lat',
@@ -42,8 +40,8 @@ class SearchRequest implements Request
 
 	/**
 	 * @param int|null $entityId - location id
-	 * @param EntityType|null $entityType - location type
-	 * @param null|string $q - search keyword
+	 * @param \Darkling\ZomatoClient\Request\Enum\EntityType|null $entityType - location type
+	 * @param string|null $q - search keyword
 	 * @param int|null $start - fetch results after offset
 	 * @param int|null $count - max number of results to display
 	 * @param float|null $lat - latitude
@@ -53,8 +51,8 @@ class SearchRequest implements Request
 	 * @param int|null $establishmentType - estblishment id obtained from establishments call
 	 * @param int|null $collectionId - collection id obtained from collections call
 	 * @param int[]|null $category - category ids obtained from categories call
-	 * @param Sort|null $sort - sort restaurants by
-	 * @param Order|null $order - used with 'sort' parameter to define ascending / descending
+	 * @param \Darkling\ZomatoClient\Request\Enum\Sort|null $sort - sort restaurants by
+	 * @param \Darkling\ZomatoClient\Request\Enum\Order|null $order - used with 'sort' parameter to define ascending / descending
 	 */
 	public function __construct(
 		?int $entityId = null,
@@ -93,9 +91,7 @@ class SearchRequest implements Request
 
 	/**
 	 * @param int[]|string[]|float[][] $parameters
-	 * @return SearchRequest
-	 * @throws MissingRequiredArgumentsException
-	 * @throws UnknownArgumentsException
+	 * @return \Darkling\ZomatoClient\Request\Restaurant\SearchRequest
 	 */
 	public static function createFromParameters(array $parameters): self
 	{

@@ -8,10 +8,6 @@ use stdClass;
 class JsonStdClassResponse extends BaseResponse
 {
 
-	/**
-	 * @return stdClass
-	 * @throws \Nette\Utils\JsonException
-	 */
 	public function getData(): stdClass
 	{
 		return Json::decode($this->data);

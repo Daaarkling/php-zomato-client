@@ -11,7 +11,6 @@ use Dogma\Http\HttpMethod;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\HandlerStack;
 use Nette\Http\Url;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,13 +24,13 @@ class ZomatoClient
 	/** @var string */
 	private $userKey;
 
-	/** @var Client */
+	/** @var \GuzzleHttp\Client */
 	private $httpClient;
 
-	/** @var ResponseOption */
+	/** @var \Darkling\ZomatoClient\Response\ResponseOption */
 	private $defaultResponseOption;
 
-	/** @var ResponseFactory */
+	/** @var \Darkling\ZomatoClient\Response\ResponseFactory */
 	private $responseFactory;
 
 	public function __construct(
@@ -47,7 +46,7 @@ class ZomatoClient
 		$this->httpClient = $httpClient;
 	}
 
-	public function send(Request $request, ResponseOption $responseOption = null): Response
+	public function send(Request $request, ?ResponseOption $responseOption = null): Response
 	{
 		$url = $this->assembleUrl($request);
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
@@ -62,17 +61,17 @@ class ZomatoClient
 		}
 	}
 
-	public function sendAsync(Request $request, callable $onSuccess, callable $onFail, ResponseOption $responseOption = null): void
+	public function sendAsync(Request $request, callable $onSuccess, callable $onFail, ?ResponseOption $responseOption = null): void
 	{
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
 		$url = $this->assembleUrl($request);
 		$this->handleContentTypeHeader($responseOption);
 
-		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl()).then(
-			function (ResponseInterface $httpResponse) use ($onSuccess, $responseOption) {
+		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl()) . then(
+			function (ResponseInterface $httpResponse) use ($onSuccess, $responseOption): void {
 				$onSuccess($this->responseFactory->create($responseOption, $httpResponse));
 			},
-			function (RequestException $e) use ($onFail) {
+			static function (RequestException $e) use ($onFail): void {
 				$onFail(new ZomatoRequestException($url->getAbsoluteUrl(), $e));
 			}
 		);
@@ -92,14 +91,13 @@ class ZomatoClient
 			? 'application/json'
 			: 'application/xml';
 
-		/** @var HandlerStack $stack */
+		/** @var \GuzzleHttp\HandlerStack $stack */
 		$stack = $this->httpClient->getConfig(['handler']);
 		$stack->remove(self::MIDDLEWARE_NAME);
-		$stack->push(function (callable $handler) use ($contentType): callable
-		{
-			return function (RequestInterface $request, array $options) use ($handler, $contentType)
-			{
+		$stack->push(static function (callable $handler) use ($contentType): callable {
+			return static function (RequestInterface $request, array $options) use ($handler, $contentType) {
 				$request = $request->withHeader(HttpHeader::CONTENT_TYPE, $contentType);
+
 				return $handler($request, $options);
 			};
 		}, self::MIDDLEWARE_NAME);
