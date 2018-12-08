@@ -2,7 +2,7 @@
 
 namespace Darkling\ZomatoClient\Test\Request;
 
-use Darkling\ZomatoClient\Request\DailyMenuRequest;
+use Darkling\ZomatoClient\Request\Restaurant\DailyMenuRequest;
 use Darkling\ZomatoClient\Request\Validator\MissingRequiredArgumentsException;
 use Darkling\ZomatoClient\Request\Validator\UnknownArgumentsException;
 use Tester\Assert;

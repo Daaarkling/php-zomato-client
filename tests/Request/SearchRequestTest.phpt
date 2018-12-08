@@ -2,7 +2,7 @@
 
 namespace Darkling\ZomatoClient\Test\Request;
 
-use Darkling\ZomatoClient\Request\SearchRequest;
+use Darkling\ZomatoClient\Request\Restaurant\SearchRequest;
 use Darkling\ZomatoClient\Request\Enum\EntityType;
 use Darkling\ZomatoClient\Request\Enum\Order;
 use Darkling\ZomatoClient\Request\Enum\Sort;
@@ -69,4 +69,4 @@ class SearchRequestTest extends TestCase
 
 }
 
-(new ReviewsRequestTest())->run();
+(new SearchRequestTest())->run();

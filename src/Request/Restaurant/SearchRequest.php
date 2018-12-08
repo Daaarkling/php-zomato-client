@@ -73,7 +73,7 @@ class SearchRequest implements Request
 	{
 		$this->parameters = array_map('\strval', array_filter([
 			'entity_id' => $entityId,
-			'entity_type' => $entityType,
+			'entity_type' => $entityType !== null ? $entityType->getValue() : null,
 			'q' => $q,
 			'start' => $start,
 			'count' => $count,
@@ -83,9 +83,9 @@ class SearchRequest implements Request
 			'cuisines' => $cuisines !== null ? implode(',', $cuisines) : null,
 			'establishment_type' => $establishmentType,
 			'collection_id' => $collectionId,
-			'category' => $category,
-			'sort' => $sort,
-			'order' => $order,
+			'category' => $category !== null ? implode(',', $category) : null,
+			'sort' => $sort !== null ? $sort->getValue() : null,
+			'order' => $order !== null ? $order->getValue() : null,
 		]));
 	}
 

@@ -17,7 +17,7 @@ class MissingRequiredArgumentsException extends Exception
 	public function __construct(array $arguments, ?Throwable $previous = null)
 	{
 		ksort($arguments);
-		parent::__construct(sprintf('Missing required arguments: %s', implode(',', $arguments)), 0, $previous);
+		parent::__construct(sprintf('Missing required arguments: %s', implode(', ', $arguments)), 0, $previous);
 	}
 
 }

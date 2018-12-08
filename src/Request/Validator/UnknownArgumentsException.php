@@ -17,7 +17,7 @@ class UnknownArgumentsException extends Exception
 	public function __construct(array $arguments, ?Throwable $previous = null)
 	{
 		ksort($arguments);
-		parent::__construct(sprintf('Unknown arguments: %s', implode(',', $arguments)), 0, $previous);
+		parent::__construct(sprintf('Unknown arguments: %s', implode(', ', $arguments)), 0, $previous);
 	}
 
 }
