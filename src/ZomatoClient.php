@@ -10,7 +10,6 @@ use Dogma\Http\HttpMethod;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use Nette\Http\Url;
 use Psr\Http\Message\ResponseInterface;
 
 class ZomatoClient
@@ -27,6 +26,9 @@ class ZomatoClient
 	/** @var \Darkling\ZomatoClient\Response\ResponseFactory */
 	private $responseFactory;
 
+	/** @var \Darkling\ZomatoClient\UrlProvider */
+	private $urlProvider;
+
 	public function __construct(string $userKey, ?ResponseOption $responseOption = null)
 	{
 		$this->httpClient = new Client([
@@ -36,11 +38,12 @@ class ZomatoClient
 		]);
 		$this->defaultResponseOption = $responseOption;
 		$this->responseFactory = new OptionResponseFactory();
+		$this->urlProvider = new UrlProvider(self::BASE_API_URL);
 	}
 
 	public function send(Request $request, ?ResponseOption $responseOption = null): Response
 	{
-		$url = $this->assembleUrl($request);
+		$url = $this->urlProvider->getUrl($request);
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
 
 		try {
@@ -55,7 +58,7 @@ class ZomatoClient
 	public function sendAsync(Request $request, callable $onSuccess, callable $onFail, ?ResponseOption $responseOption = null): void
 	{
 		$responseOption = $responseOption ?? $this->defaultResponseOption;
-		$url = $this->assembleUrl($request);
+		$url = $this->urlProvider->getUrl($request);
 
 		$this->httpClient->requestAsync(HttpMethod::GET, $url->getAbsoluteUrl())
 			->then(
@@ -66,13 +69,6 @@ class ZomatoClient
 					$onFail(new ZomatoRequestException($url->getAbsoluteUrl(), $e));
 				}
 			);
-	}
-
-	private function assembleUrl(Request $request): Url
-	{
-		$url = new Url(self::BASE_API_URL . $request->getEndPoint());
-		$url->appendQuery($request->getParameters());
-		return $url;
 	}
 
 }
