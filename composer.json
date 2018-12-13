@@ -1,5 +1,5 @@
 {
-	"name": "darkling/zomato-client",
+	"name": "darkling/php-zomato-client",
 	"description": "Zomato php api client",
 	"license": ["BSD-3-Clause"],
 	"authors": [
@@ -8,6 +8,20 @@
 			"homepage": "https://janvanura.cz"
 		}
 	],
+  	"scripts": {
+		"fix": "@fix:cs",
+		"check": [
+	 		"@check:composer-validate",
+	 		"@check:phpcs",
+	 		"@check:phpstan",
+	 		"@check:tests"
+		],
+		"check:composer-validate": "composer validate",
+		"check:phpcs": "php bin/phpcs --standard=build/phpcs.xml --extensions=php --encoding=utf-8 --tab-width=4 src",
+		"check:phpstan": "php bin/phpstan analyse -l 7 -c build/phpstan.neon src tests",
+	  	"check:tests": "php bin/tester -c tests/php.ini tests",
+		"fix:cs": "php bin/phpcbf --standard=build/phpcs.xml --extensions=php --encoding=utf-8 --tab-width=4 src"
+	},
 	"config": {
 		"bin-dir": "bin"
 	},
@@ -20,7 +34,6 @@
 	"require-dev": {
 		"consistence/coding-standard": "^3.0",
 		"slevomat/coding-standard": "^4.0",
-		"phing/phing": "^2.16",
 		"phpstan/phpstan": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
 		"nette/tester": "^2.1"

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Darkling\ZomatoClient\Test\Request;
+namespace Darkling\ZomatoClient\Test;
 
 use Darkling\ZomatoClient\Request\Enum\EntityType;
 use Darkling\ZomatoClient\Request\Enum\Order;
