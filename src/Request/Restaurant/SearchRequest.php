@@ -98,20 +98,20 @@ class SearchRequest implements Request
 		RequestValidator::validate(self::SCHEMA, $parameters);
 
 		return new self(
-			$parameters['entity_id'],
-			$parameters['entity_type'],
-			$parameters['q'],
-			$parameters['start'],
-			$parameters['count'],
-			$parameters['lat'],
-			$parameters['lon'],
-			$parameters['radius'],
-			$parameters['cuisines'],
-			$parameters['establishment_type'],
-			$parameters['collection_id'],
-			$parameters['category'],
-			$parameters['sort'],
-			$parameters['order']
+			$parameters['entity_id'] ?? null,
+			$parameters['entity_type'] ?? null,
+			$parameters['q'] ?? null,
+			$parameters['start'] ?? null,
+			$parameters['count'] ?? null,
+			$parameters['lat'] ?? null,
+			$parameters['lon'] ?? null,
+			$parameters['radius'] ?? null,
+			$parameters['cuisines'] ?? null,
+			$parameters['establishment_type'] ?? null,
+			$parameters['collection_id'] ?? null,
+			$parameters['category'] ?? null,
+			$parameters['sort'] ?? null,
+			$parameters['order'] ?? null
 		);
 	}
 

@@ -30,6 +30,10 @@ class ReviewsRequestTest extends TestCase
 		Assert::equal(['res_id' => '1', 'start' => '2', 'count' => '3'], $request->getParameters());
 		Assert::same('reviews', $request->getEndPoint());
 
+		$request = ReviewsRequest::createFromParameters(['res_id' => 1]);
+		Assert::equal(['res_id' => '1'], $request->getParameters());
+		Assert::same('reviews', $request->getEndPoint());
+
 		Assert::exception(function () {
 			ReviewsRequest::createFromParameters([]);
 		}, MissingRequiredArgumentsException::class, 'Missing required arguments: res_id');

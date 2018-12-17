@@ -48,8 +48,8 @@ class ReviewsRequest implements Request
 
 		return new self(
 			$parameters['res_id'],
-			$parameters['start'],
-			$parameters['count']
+			$parameters['start'] ?? null,
+			$parameters['count'] ?? null
 		);
 	}
 
